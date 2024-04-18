@@ -70,6 +70,22 @@ enum layers {
 #define CUT    C(KC_X)
 #define UNDO   C(KC_Z)
 
+void keyboard_pre_init_user() {
+    writePin(LED1, true);
+    writePin(LED2, true);
+}
+
+void keyboard_post_init_user() {
+    writePin(LED1, false);
+    writePin(LED2, false);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    writePin(LED1, record->event.pressed);
+
+    return true;
+}
+
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (get_mods() & MOD_BIT(KC_LSFT)) { // left shift pressed
         if (clockwise) {
@@ -85,6 +101,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
        }
     }
     return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(LED2, state);
+
+    return state;
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

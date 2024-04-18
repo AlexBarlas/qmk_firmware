@@ -16,7 +16,7 @@
 
 #pragma once
 
-#ifdef VIA_ENABLE
+#define ENCODERS_PAD_A { C4 }
+#define ENCODERS_PAD_B { C5 }
 
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 4
-#endif // VIA_ENABLE
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6
